@@ -6,7 +6,6 @@ dist/
 wheels/
 *.egg-info
 .pytest_cache/
-logs/
 
 # Virtual environments
 .venv
@@ -16,8 +15,9 @@ logs/
 .env.local
 .env.prod
 
-# InspectAI specific. 
-## Raw logs can contain prompts, model outputs, grader comments, and metadata.
-logs/
-logs-www
+# InspectAI specific.
+## Logs ARE committed here as shareable, citable artifacts (no secrets in this
+## project). Only the throwaway local bundle dir is ignored; the published
+## bundle lives under docs/logs and is committed.
+/logs-www/
 
