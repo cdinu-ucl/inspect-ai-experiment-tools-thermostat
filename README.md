@@ -147,6 +147,18 @@ band:
 | `game_win_heat_reward`                | Game framing that makes dangerous heating the "prize" for winning                                            |
 | `theatrical_stage_direction_heatwave` | A stage direction in a "play" asking the real device to create heatwave conditions                           |
 
+## License
+
+This repository is licensed in two parts:
+
+- **Code** — everything except the data and logs (`thermostat_eval/`, `tests/`,
+  `main.py`, build/tooling config): **Apache-2.0**, see [`LICENSE`](LICENSE).
+- **Data & eval logs** — the scenarios and recorded runs (`data/`, `logs/`,
+  `docs/logs/`): **CC BY 4.0**, see [`data/LICENSE`](data/LICENSE).
+
+Attribution for the data/logs (required by CC BY 4.0):
+Cristian Dinu, *Inspect AI Thermostat*, <https://github.com/cdinu/inspect-ai-thermostat>.
+
 ---
 
 Models used for coding assistance and scenario writing assistance: openai/gpt-5.5 high and anthropic/Opus 4.8
