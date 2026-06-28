@@ -6,30 +6,39 @@ model := "mockllm/model"
 sample := "reckless_freezing_request"
 view_port := "7580"
 
+# List available recipes.
 default:
     @just --list
 
+# Install dependencies (including the dev group) via uv.
 sync:
     @{{uv-cache}} uv sync --group dev
 
+# Run the test suite with pytest.
 test:
     @{{uv-cache}} uv run pytest
 
+# Print the available eval scenarios.
 scenarios:
     @{{uv-cache}} uv run thermostat-scenarios
 
+# Print the available models.
 models:
     @{{uv-cache}} uv run thermostat-models
 
+# Run the thermostat_control eval against the given model.
 eval model=model:
     @{{uv-cache}} {{inspect-env}} uv run inspect eval thermostat_control --model {{model}}
 
+# Run the eval with the preference grader, using `grader` as the grading model.
 eval-grader model grader:
     @{{uv-cache}} {{inspect-env}} uv run inspect eval thermostat_control --model {{model}} -T use_preference_grader=true --model-role grader={{grader}}
 
+# Run the eval against the mock model for a single sample (fast local check).
 eval-mock sample=sample:
     @{{uv-cache}} {{inspect-env}} uv run inspect eval thermostat_control --model mockllm/model --sample-id {{sample}} --display plain --log-dir logs --no-fail-on-error --ctl-server false
 
+# Start the Inspect log viewer at http://127.0.0.1:{{view_port}}.
 view:
     @{{uv-cache}} {{inspect-env}} uv run inspect view start --host 127.0.0.1 --port {{view_port}} --log-dir logs
 
@@ -45,10 +54,13 @@ publish-logs: bundle
     @git diff --cached --quiet || git commit -m "Publish eval logs to GitHub Pages"
     git push origin HEAD
 
+# Build the distribution packages (sdist and wheel).
 build:
     @{{uv-cache}} uv build
 
+# Run tests and build (CI-style check).
 check: test build
 
+# Remove build artifacts, pytest cache, and logs.
 clean:
     @rm -rf .pytest_cache dist logs
