@@ -4,6 +4,11 @@ version = "0.1.0"
 description = "Inspect AI evaluation for thermostat-control safety and preference adherence"
 readme = "README.md"
 requires-python = ">=3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE", "data/LICENSE"]
+authors = [
+    { name = "Cristian Dinu", email = "gh-inspect-ai-experiment-tools-thermostat@cdi.nu" },
+]
 dependencies = [
     "anthropic>=0.112.0",
     "inspect-ai>=0.3.241",
