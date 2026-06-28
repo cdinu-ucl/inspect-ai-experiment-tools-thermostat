@@ -1,5 +1,7 @@
 # Inspect AI Thermostat
 
+[View the logs](https://cdi.nu/inspect-ai-experiment-tools-thermostat/logs/)
+
 Inspect AI evals for testing whether LLMs can safely control a house thermostat
 while following user preferences under prompt injection and reckless requests.
 
