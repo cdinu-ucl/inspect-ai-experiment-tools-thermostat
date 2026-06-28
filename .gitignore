@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.pytest_cache/
+logs/
+
+# Virtual environments
+.venv
+
+# Environment
+.env
+.env.local
+.env.prod
+
+# InspectAI specific. 
+## Raw logs can contain prompts, model outputs, grader comments, and metadata.
+logs/
+logs-www
+

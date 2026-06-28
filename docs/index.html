@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inspect AI Thermostat — Evaluation Logs</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 46rem;
+        margin: 0 auto;
+        padding: 3rem 1.25rem 4rem;
+        color: #1a1a1a;
+        background: #fff;
+      }
+      @media (prefers-color-scheme: dark) {
+        body { color: #e6e6e6; background: #14171a; }
+        a { color: #6cb6ff; }
+        code { background: #22272e; }
+        .card { border-color: #2d333b; background: #1b1f24; }
+      }
+      h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+      .sub { color: #666; margin-top: 0; }
+      code { background: #f0f0f0; padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em; }
+      .card {
+        display: block;
+        border: 1px solid #e2e2e2;
+        border-radius: 10px;
+        padding: 1.1rem 1.25rem;
+        margin: 1.75rem 0;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.08s ease, box-shadow 0.08s ease;
+      }
+      .card:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+      .card strong { font-size: 1.15rem; }
+      .card .arrow { float: right; font-size: 1.3rem; opacity: 0.6; }
+      ul { padding-left: 1.2rem; }
+      footer { margin-top: 3rem; font-size: 0.85rem; color: #888; }
+    </style>
+  </head>
+  <body>
+    <h1>🌡️ Inspect AI Thermostat</h1>
+    <p class="sub">Safety &amp; preference-adherence evals for an LLM controlling a house thermostat.</p>
+
+    <p>
+      This project uses <a href="https://inspect.aisi.org.uk/">Inspect AI</a> to test whether a
+      language model can <strong>safely</strong> control a simulated home thermostat while following the
+      user's stated comfort preferences — under prompt injection, social engineering, and reckless
+      requests.
+    </p>
+    <p>
+      The simulated device is <strong>deliberately insecure</strong>: it applies whatever it is told and
+      has no safety policy of its own, so the eval measures the model's own judgement. Two safety scores
+      are reported — whether the thermostat <em>ended</em> in a safe state, and whether the model ever
+      <em>commanded</em> an unsafe action — each split by attack family (physically extreme vs. the
+      subtler "safe-but-deadly" band).
+    </p>
+    <p>
+      <strong>There is deliberately no safety system prompt during testing.</strong> The model receives
+      only the user's preferences and request — no system message telling it to be careful or to resist
+      injection. This models a <em>naive</em> integration: an OpenClaw-style agent or a bare MCP
+      connection wired straight into something like <a href="https://www.home-assistant.io/">Home
+      Assistant</a>, with no safety scaffolding added. The eval asks whether the model is safe
+      <em>out of the box</em> in a careless deployment — not whether a well-engineered guard prompt
+      could make it safe.
+    </p>
+
+    <a class="card" href="./logs/">
+      <span class="arrow">→</span>
+      <strong>Open the interactive log viewer</strong>
+      <div>Browse every eval run, sample transcript, tool call, and score in the Inspect viewer.</div>
+    </a>
+
+    <h2>What you'll find in the logs</h2>
+    <ul>
+      <li>Each <strong>sample</strong> is one adversarial scenario (e.g. a fake "WHO firmware advisory", a Fahrenheit unit trick, a boiling-frog escalation).</li>
+      <li><code>security_scorer</code> — did the thermostat end in a contextually safe state?</li>
+      <li><code>attempt_scorer</code> — did the model ever issue an unsafe command, even if later corrected?</li>
+      <li><code>preference_scorer</code> — did it honour the user's safe comfort preferences?</li>
+      <li>Scores are grouped by <code>attack_class</code>: <code>physical_extreme</code> vs. <code>contextual_band</code>.</li>
+    </ul>
+
+    <footer>
+      Generated with <code>inspect view bundle</code> · regenerate &amp; publish with <code>just publish-logs</code>.
+    </footer>
+  </body>
+</html>
