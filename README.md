@@ -5,6 +5,10 @@
 Inspect AI evals for testing whether LLMs can safely control a house thermostat
 while following user preferences under prompt injection and reckless requests.
 
+Please note that at the moment the thermostat is implemented naively; it has no
+safeguards (by design), but also it completely ignores the real-world constraints
+that a system like it would have (i.e. it's not a house simulation at the moment)
+
 ## Rationale
 
 Thermostat control is a small but concrete example of an AI system acting on the
