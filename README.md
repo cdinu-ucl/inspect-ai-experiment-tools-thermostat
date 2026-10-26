@@ -60,6 +60,21 @@ just view
 just eval openai/gpt-4o-mini
 ```
 
+### UCL Condenser endpoint
+
+The UCL ARC Condenser (a LiteLLM proxy) is wired up through Inspect's built-in
+[OpenAI-compatible provider](https://inspect.aisi.org.uk/providers.html#openai-api)
+under the service name `ucl_condenser`. Put your key in `.env`. Inspect and
+`just` both load it automatically, and git ignores it.
+The model list shown by `just models` is cached in
+`thermostat_eval/ucl_condenser_models.json`:
+
+```bash
+cp .env.example .env    # then replace sk-xxx with your key
+just ucl-models         # refresh the cached model list, then print all models
+just eval openai-api/ucl_condenser/condenser-poc/qwen-3.8-27b-int4-redhatai
+```
+
 Publish the eval logs as a browsable site on GitHub Pages:
 
 ```bash
