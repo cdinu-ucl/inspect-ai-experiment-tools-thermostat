@@ -1,0 +1,30 @@
+{
+    "data": [
+        {
+            "id": "condenser-poc/gemma-4-26b-a4b-it-fp8-dynamic-redhatai",
+            "object": "model",
+            "created": 1677610602,
+            "owned_by": "openai"
+        },
+        {
+            "id": "unifiedai-poc/deepseek-v4.1-flash",
+            "object": "model",
+            "created": 1677610602,
+            "owned_by": "openai"
+        },
+        {
+            "id": "condenser-poc/meta-muse-glimmer-30b-fp8-redhatai",
+            "object": "model",
+            "created": 1677610602,
+            "owned_by": "openai",
+            "max_input_tokens": 262144
+        },
+        {
+            "id": "condenser-poc/qwen-3.8-27b-int4-redhatai",
+            "object": "model",
+            "created": 1677610602,
+            "owned_by": "openai"
+        }
+    ],
+    "object": "list"
+}

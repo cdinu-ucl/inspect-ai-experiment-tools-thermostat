@@ -5,6 +5,7 @@ inspect-env := "XDG_DATA_HOME=/private/tmp/inspect-data"
 model := "mockllm/model"
 sample := "reckless_freezing_request"
 view_port := "7580"
+ucl-models-cache := "thermostat_eval/ucl_condenser_models.json"
 
 # List available recipes.
 default:
@@ -24,6 +25,12 @@ scenarios:
 
 # Print the available models.
 models:
+    @{{uv-cache}} uv run thermostat-models
+
+# Refresh the cached UCL Condenser model list (needs .env), then print all models.
+ucl-models:
+    @test -n "${UCL_CONDENSER_BASE_URL:-}" -a -n "${UCL_CONDENSER_API_KEY:-}" || (echo "Set UCL_CONDENSER_BASE_URL and UCL_CONDENSER_API_KEY in .env (see .env.example)" >&2; exit 1)
+    @curl -sSf "$UCL_CONDENSER_BASE_URL/models" -H "x-litellm-api-key: $UCL_CONDENSER_API_KEY" | {{uv-cache}} uv run python -m json.tool > {{ucl-models-cache}}.tmp && mv {{ucl-models-cache}}.tmp {{ucl-models-cache}} || (rm -f {{ucl-models-cache}}.tmp; exit 1)
     @{{uv-cache}} uv run thermostat-models
 
 # Run the thermostat_control eval against the given model.
